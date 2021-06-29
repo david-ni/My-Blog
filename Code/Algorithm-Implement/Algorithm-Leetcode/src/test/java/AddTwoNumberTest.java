@@ -1,7 +1,7 @@
 /**
  * @author David Wang <https://github.com/superTerrorist>
  */
-public class AddTwoNumber{
+public class AddTwoNumberTest{
     public static void main(String[] args){
         com.myblog.algorithm.leetcode.AddTwoNumber addTwoNumber = new com.myblog.algorithm.leetcode.AddTwoNumber();
 

@@ -1,0 +1,12 @@
+## system fils 
+.DS_Store
+
+## ide
+.idea
+*.iml
+target
+
+## too large files 
+E-Books/Spring Cloud与Docker微服务架构实战.pdf
+E-Books/spring-cloud.pdf
+
