@@ -104,13 +104,27 @@ CSSOM + DOM = Render Tree
 
 布局完成后，浏览器需要将这些信息输出到屏幕中
 
-## 附录
 
-### 阻塞和非阻塞资源
 
-### 简单和非简单请求
+## 阻塞和非阻塞资源
 
-### 重绘和回流
+在前面`资源的解析和渲染`中，我们可以知道:
+
+1. `CSS`资源虽然不会阻塞`DOM`树的生成，但是会阻塞`Render Tree`
+2. `JS`资源不仅仅会阻塞`DOM`树的生成而且也会影响`CSS DOM`，理由很简单因为JS会修改dom和css
+3. 而图片和字体等是非阻塞资源
+
+知道结论后，为了优化网页的加载速度，我们就要思考如何延迟加载非关键的`CSS`和`JS`资源
+
+### JS的加载优化
+
+1. 懒加载
+
+### CSS的加载优化
+
+## 简单和非简单请求
+
+## 重绘和回流
 
 
 
@@ -119,4 +133,5 @@ CSSOM + DOM = Render Tree
 1. [Building Blocks of TCP](https://hpbn.co/building-blocks-of-tcp/)
 2. [Populating the page: how browsers work](https://developer.mozilla.org/en-US/docs/Web/Performance/How_browsers_work)
 3. [Google Doc: Critical Render Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
+4. [JavaScript modules](https://v8.dev/features/modules#module-vs-script)
 
