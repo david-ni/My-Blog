@@ -120,13 +120,87 @@ CSSOM + DOM = Render Tree
 
 1. 懒加载
 
+2. 利用`script`中的属性
+
+   > [`<script> async, defer, async defer, module, nomodule, src, inline` - the cheat sheet](https://gist.github.com/jakub-g/385ee6b41085303a53ad92c7c8afd7a6)
+
+![](Assets/Start-With-Url-04.svg)
+
 ### CSS的加载优化
 
-## 简单和非简单请求
+1. 使用媒体查询，减少样式的解析量
+
+```html
+<link href="style.css"    rel="stylesheet">
+<link href="style.css"    rel="stylesheet" media="all">
+<link href="portrait.css" rel="stylesheet" media="orientation:portrait">
+<link href="print.css"    rel="stylesheet" media="print">
+```
+
+虽然上面的样式都会被下载，但只有符合调整的样式才会被解析
 
 ## 重绘和回流
 
+### 重绘（repaint）
 
+当元素的某些属性发生变化，这些属性又只影响元素的**外观和风格**，而不改变元素的布局、大小（比如颜色、背景），浏览器会重新绘制新的样式，这个过程称之为重绘。
+
+
+
+### 回流（reflow）
+
+当元素的布局、大小规模和显示方式发生改变时，触发的浏览器行为叫回流。
+
+>  注意：回流必将引起重绘，而重绘不一定伴随回流。同时，回流对性能的影响要大于重构。
+
+**会导致回流的操作**：
+
+- 页面首次渲染
+- 浏览器窗口大小发生改变
+- 元素尺寸或位置发生改变
+- 元素内容变化（文字数量或图片大小等等）
+- 元素字体大小变化
+- 添加或者删除**可见**的`DOM`元素
+- 激活`CSS`伪类（例如：`:hover`）
+- 查询某些属性或调用某些方法
+
+**一些常用且会导致回流的属性和方法**：
+
+- `clientWidth`、`clientHeight`、`clientTop`、`clientLeft`
+- `offsetWidth`、`offsetHeight`、`offsetTop`、`offsetLeft`
+- `scrollWidth`、`scrollHeight`、`scrollTop`、`scrollLeft`
+- `scrollIntoView()`、`scrollIntoViewIfNeeded()`
+- `getComputedStyle()`
+- `getBoundingClientRect()`
+- `scrollTo()`
+
+### 如何避免
+
+#### CSS
+
+- 避免使用`table`布局。
+- 尽可能在`DOM`树的最末端改变`class`。
+- 避免设置多层内联样式。
+- 将动画效果应用到`position`属性为`absolute`或`fixed`的元素上。
+- 避免使用`CSS`表达式（例如：`calc()`）。
+
+#### JavaScript
+
+- 避免频繁操作样式，最好一次性重写`style`属性，或者将样式列表定义为`class`并一次性更改`class`属性。
+- 避免频繁操作`DOM`，创建一个`documentFragment`，在它上面应用所有`DOM操作`，最后再把它添加到文档中。
+- 也可以先为元素设置`display: none`，操作结束后再把它显示出来。因为在`display`属性为`none`的元素上进行的`DOM`操作不会引发回流和重绘。
+- 避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。
+- 对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。
+
+## 浏览器架构
+
+> [Multi-process Architecture](https://www.chromium.org/developers/design-documents/multi-process-architecture)
+
+<img src="Assets/Start-With-Url-05.png" alt="img" style="zoom: 67%;" />
+
+浏览器是多进程的，这样可以避免由于一个进程的崩溃导致整个浏览器的宕机
+
+由上图我们有两类进程：`Browser`和`Render`，`Browser`主要负责管理UI、tab以及浏览器插件，而每个新建的Tab都有对应的一个`Render`进程
 
 ## 参考
 
@@ -134,4 +208,5 @@ CSSOM + DOM = Render Tree
 2. [Populating the page: how browsers work](https://developer.mozilla.org/en-US/docs/Web/Performance/How_browsers_work)
 3. [Google Doc: Critical Render Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
 4. [JavaScript modules](https://v8.dev/features/modules#module-vs-script)
+5. [浏览器的回流与重绘 (Reflow & Repaint)]()
 
