@@ -5,6 +5,8 @@
 ## Blogs
 
 - [FENews](https://fenews.org/)
+- [奇舞周刊](https://weekly.75.team/)
+- 字节前端 ByteFE 公众号
 
 ## Books
 

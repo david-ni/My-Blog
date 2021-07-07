@@ -28,6 +28,12 @@
 > 2. 服务端接收到包后向客户端发送数据包（表明自己接受能力正常）； 
 > 3. 客户端收到数据包后再向服务端发送确认包（表明客户端接收能力正常）
 
+#### TCP慢启动
+
+在完成三次握手后，发送端和接受端就建立了TCP连接。但是在连接建立之初，由于并不清楚带宽的情况，并不能够马上发送大量的数据包（可能会导致路由器缓存空间耗尽），而是采用了**慢启动**的方式，先发送少量的包（14kb）,而后根据带宽情况进行调整
+
+![](Assets/Start-With-Url-01.svg)
+
 #### 四次挥手
 
 > 在断开连接前，会进行四次挥手。
@@ -39,9 +45,78 @@
 > 3. 但是此时客户端和服务端还没有正式的断开，服务端可能还有些数据需要传送给客户端，在数据全部传送完毕后，服务端会向客户端发送连接释放报文； 
 > 4. 客户端收到服务器的连接释放报文后，发出确认报文
 
-#### TCP慢启动
+## 资源的解析和渲染
 
-## 资源的解析
+完成了网络请求和响应后，浏览器就需要对所获得的资源进行解析，通常这需要五大步骤（CRP）：创建DOM树、CSS DOM、生成Render Tree、Layout和Paint
+
+> [Critical Render Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
+
+### DOM Tree
+
+<img src="Assets/image-20210603195526480.png" style="zoom:33%;" />
+
+1. 资源获取（from network or local file system） 
+
+2. 我们从网络或本地文件资源中拿到的是字节流，拿到字节流后浏览器会尝试解码
+
+   > 选定编码的规则：
+   >
+   > 1. 根据http头部字段conten-type获取字符编码 ```content-tyep: text/html;charset=utf-8```
+   > 2. 根据文档的meta标签获取，例：```<meta charset="UTF-8" / >```
+   > 3. 如果上述两个都没有，浏览器会通过[字节编码嗅探算法](https://html.spec.whatwg.org/multipage/parsing.html#encoding-sniffing-algorithm)决定字符编码
+
+3. Input Stream Preprocessor: 这个步骤执行的做的事情仅仅是**标准化换行符**，因为在不同系统下使用文本使用的换行符是不一致的，**例如Windows使用CRLF作为换行符，而类Unix系统使用LF作为换行符**。
+
+4. Tokenizer：字节流经过解码后形成了一串无状态的字符串，为了方便解析，需要将这一长串的字符串按规则分隔成一系列的子串。这个这个过程叫做`Tokenizer`(令牌化)
+
+   > 令牌化的目的就是把之前无意义的字符串分隔成单词组成的句子，比如`iamacoder`这一串字符串没有任何意义，但是如果我们把它分割一下`i` `am` `a` `coder`就组成了有意义的句子，令牌化的目的也在于此
+
+5. DOM: 字符经过`Tokenizer`会传递给`Tree Construction`输出`Dom Tree`
+
+### CSS DOM
+
+在浏览器解析`html`时，如果遇到`link`标签，它会立即发送对该资源的请求，但它不会阻塞Dom的生成。
+
+与处理 HTML 时一样，浏览器会将获取的字节转化成类似于`DOM`的`CSSOM`
+
+<img src="Assets/Start-With-Url-02.png" style="zoom:67%;" />
+
+### Render Tree
+
+CSSOM + DOM = Render Tree
+
+<img src="Assets/Start-With-Url-03.png" style="zoom: 67%;" />
+
+为了构建渲染树，浏览器需要完成以下几个工作：
+
+1. 从 DOM 树的根节点开始遍历每个可见节点
+   - 某些节点不可见（例如脚本标记、元标记等），因为它们不会体现在渲染输出中，所以会被忽略。
+   - 某些节点通过 CSS 隐藏，因此在渲染树中也会被忽略，
+2. 对于每个可见节点，为其找到适配的 CSSOM 规则并应用它们
+
+> 请注意 `visibility: hidden` 与 `display: none` 是不一样的。前者隐藏元素，但元素仍占据着布局空间（即将其渲染成一个空框），而后者 (`display: none`) 将元素从渲染树中完全移除，元素既不可见，也不是布局的组成部分
+
+### Layout
+
+渲染树为我们提供了节点以及每个节点对应的样式规则，基于这些信息我们可以计算出每个节点的大小和位置。这就是Layout这一步所做的事情，确定每个节点的位置和大小。
+
+### Paint
+
+布局完成后，浏览器需要将这些信息输出到屏幕中
+
+## 附录
+
+### 阻塞和非阻塞资源
+
+### 简单和非简单请求
+
+### 重绘和回流
 
 
+
+## 参考
+
+1. [Building Blocks of TCP](https://hpbn.co/building-blocks-of-tcp/)
+2. [Populating the page: how browsers work](https://developer.mozilla.org/en-US/docs/Web/Performance/How_browsers_work)
+3. [Google Doc: Critical Render Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
 
