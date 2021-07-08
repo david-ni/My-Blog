@@ -8,6 +8,7 @@
 3. [Chrome DevTools 的使用](#./Browser/Chrome-DevTool-Using.md)
 
 4. [从URL到页面呈现](./Browser/Start-With-Url.md)
+5. [浏览器同源策略](./Browser/Same-Origin-Policy.md)
 
 
 
