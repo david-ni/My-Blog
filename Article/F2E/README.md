@@ -17,6 +17,7 @@
 1. [Js中的this](./Js/Js-This.md)
 2. [Event Loop](./Js/Js-Eventloop.md)
 3. [Js安全整数](./Js/Js-Safe-Integer.md)
+4. [`requestIdleCallback` 和`requestAnimationFrame`](./Js/Js-Idle-Animation.md)
 
 ## React
 
