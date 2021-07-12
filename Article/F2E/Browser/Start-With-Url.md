@@ -178,6 +178,8 @@ CSSOM + DOM = Render Tree
 
 #### CSS
 
+> [Css triggers](https://csstriggers.com/)
+
 - 避免使用`table`布局。
 - 尽可能在`DOM`树的最末端改变`class`。
 - 避免设置多层内联样式。
@@ -209,4 +211,5 @@ CSSOM + DOM = Render Tree
 3. [Google Doc: Critical Render Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
 4. [JavaScript modules](https://v8.dev/features/modules#module-vs-script)
 5. [浏览器的回流与重绘 (Reflow & Repaint)]()
+6. [Css triggers](https://csstriggers.com/)
 
