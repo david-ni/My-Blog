@@ -242,7 +242,7 @@ str3.getBytes().length; // 4字节
 ```
 在一个源文件中，**只有一个公有类**，但是可以有**多个任意数量的非公有类**。
 
-### <a id="class_constructor"></a>构造函数
+### 构造函数
 
 - 构造函数与类同名
 - 每个类可以有一个或多个构造函数
@@ -392,6 +392,83 @@ Cat cat = (Cat)animal; // error
 - 类即使不包含抽象方法，也可以被声明成抽象类
 - 抽象类不能被实例化
 
+## Object类
+
+在Java中，Object类是所有类的超类，每个类都是由它扩展而来的。可以使用Object类型的变量引用任何类型的对象。
+
+### `equal` 方法
+
+该方法用于检测一个对象是否等于另一个对象。在Object类中，这个方法的默认实现是判断两个对象是否有相同的引用。
+
+Java语言规范要求equals方法具有下面的特性:
+
+- 自反性：对于任何非空引用x，`x.equals(x)`应该返回true.
+
+- 对称性：对于任何引用x和y，当且仅当`y.equals(x)`返回`true`，`x.equals(y)`也应该返回true
+
+- 传递性：对于任何引用x、y和z，如果`x.equals(y)`返回`true`, `y.equals(z)`返回`true`.
+`x.equals(z)`也应该返回`true`
+
+- 一致性: 如果和y引用的对象没有发生变化，反复调用`x.equals(y)`应该返回同样的结果。
+
+- 对于任意非空引用x，`x.equals(null)`应该返回false
+
+### 建议实现
+
+1. 检测`this`与`otherObject`是否引用同一个对象:
+
+```java
+if (this == otherobject) return true
+```
+
+这条语句只是一个优化。实际上,这是一种经常采用的形式。因为计算这个等式要比一个一个地比较类中的域所付出的代价小得多。
+
+2. 检测`otherObject`是否为`null`,如果为`null`,返回`false`。这项检测是很必要的。
+
+```java
+if(otherObject == null) return false;
+```
+
+3. 比较`this`与`otherobject`是否属于同一个类。如果`equals`的语义在每个子类中有所改变,就使用`getClass`检测
+
+```java
+if (getClass() != otherObject.getClass()) return false;
+```
+
+如果所有的子类都拥有统一的语义,就使用`instanceof`检测
+
+```java
+if (!(otherObject instanceof ClassName)) return false
+```
+
+4. 将`otherObject`转换为相应的类类型变量
+
+```java
+ClassName other = (ClassName) otherObject;
+```
+
+5. 现在开始对所有需要比较的域进行比较了。使用=比较基本类型域,使用equals比较对象域。如果所有的域都匹配,就返回true;否则返回false。
+
+```java
+return field1 == other.field1 8& Objects.equals(field, other.field2)
+```
+如果在子类中重新定义equals,就要在其中包含调用super.equals(other)。
+
+### `hashCode` 方法
+
+散列码（hash code）是由对象导出的一个整型数值。散列码是没有规律的。
+
+如果一个对象没有对`hashCode`方法进行重写，那么其返回的是该对象的存储地址。如果`equal` 方法被重写了，那么就必须重新定义`hashCode`方法。
+
+重写`hashCode`方法，需要满足以下规则：
+
+1. `hashCode`方法应该返回一个整型数值
+2. 如果存在`x.equal(y)`,那么`x.hashCode()`就必须等于`y.hashCode()`
+
+> 注：散列码并不唯一，如果两个不同的对象，其散列码有可能相同
+
+### `toString` 方法
+
 ## 内部类
 
 内部类可以访问该类定义所在的作用域中的数据，包括私有数据
@@ -461,6 +538,45 @@ OuterClass.StaticInnerClass staticInnerClass = new outerClass.StaticInnerClass()
 ### 匿名内部类 
 
 > [Anonymous Inner Class in Java](https://www.geeksforgeeks.org/anonymous-inner-class-java/)
+
+## Java 枚举
+
+> [Java Enums](http://tutorials.jenkov.com/java/enums.htm)
+
+在Java中枚举对象可以在类外或类中声明，但不可在方法中声明
+
+```java
+enum Color{ 
+    RED, GREEN, BLUE; 
+} 
+  
+public class Test{ 
+    // Driver method 
+    public static void main(String[] args) 
+    { 
+        Color c1 = Color.RED; 
+        // output: RED
+        System.out.println(c1); 
+    } 
+}
+```
+
+### 枚举类 
+
+```java
+public enum Level {
+    HIGH  (3),  //calls constructor with value 3
+    MEDIUM(2),  //calls constructor with value 2
+    LOW   (1)   //calls constructor with value 1
+    ; // semicolon needed when fields / methods follow
+
+    private final int levelCode;
+
+    private Level(int levelCode) {
+        this.levelCode = levelCode;
+    }
+}
+```
 
 ## Java 接口
 
@@ -692,6 +808,23 @@ package packageName;
 
 标记为`public`的部分可以被任意类使用，标记为`private`的只能被定义它们的类使用。如果没有定义访问修饰符，则这个部分可以被同一个包的所有方法使用。
 
+## Java异常
+
+<img src="./Assets/java-exception.png" alt="Java Exception" style="zoom:50%;" />
+
+所有的异常都是由`Throwable`继承而来的，异常可以分为两类：`Error`和`Exception`。
+
+`Error`描述的是Java运行时系统内部错误和资源耗尽情况。
+
+`Exception`可分为`RuntimeException`和`其他异常`（如IOException）。由程序编写错误导致的异常属于RuntimeException，而程序本身没有问题，但由于I/O错误导致的异常属于其他异常。
+
+在Java中，异常也可分为`受查异常`（Checked Exception）和`非受查异常`(Unchecked Exception)。
+
+`受查异常`即我们需要对其处理或向上传递的异常，比如`IOException`。
+
+`非受查异常`指我们无需处理或我们无力处理的异常，`Error`和`RuntimeException`属于`非受查异常`。
+
+
 ## 类路径
 
 类路径：顾名思义就是用于存储类的文件位置。
@@ -814,3 +947,31 @@ public class Car{}
 public class SUV extends Car{
 }
 ```
+
+## `System.getProperty()` vs `System.getenv()`
+
+`System.getenv()`和`System.getProperty()`是`Java`常用的两种读取环境配置信息的方法，它们都是`java.lang.System`类的方法。
+
+1. `System.getenv()`
+
+`System.getenv()`读取的是当前操作系统的环境变量
+
+```java
+System.getenv().forEach((k, v) -> {
+    System.out.println(k + ":" + v);
+});
+```
+
+这些属性是只读的，我们无法在运行时对这些环境进行修改
+
+2. `System.getProperty()`
+
+`System.getProperty()`读取的是当前用户、系统、JVM等相关信息，以及在运行Java程序时以
+
+```bash
+# 注意：设置属性前要加-D
+java -jar package.jar -DpropertyName=value
+```
+方式传入的参数。
+
+与`System.getenv()`不同的是，`System.getProperty()`所获取的属性，可以通过`System.setProperty(key,value)`来修改，并只影响当前程序。
