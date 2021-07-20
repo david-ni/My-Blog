@@ -1,0 +1,41 @@
+# 基础配置
+spring:
+  application:
+    name: cloud-zuul
+
+server:
+  port: 8080
+
+
+# Eureka
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${server.port}}
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka
+
+
+
+# zuul 配置
+zuul:
+  # 设置路由统一前缀
+  ## http://localhost:8080/api/cloud-demo
+  prefix: /api
+  # 跳转到具体微服务时，是否剔除前缀
+  ## 比如我们要请求微服务cloud-demo http://localhost:8080/api/cloud-demo/hello
+  ## 如果`strip-prefix`设成true, 那么cloud-route接收到的请求地址就是/hello
+  ## 如果`strip-prefix`设成false, 那么cloud-route接收到的请求就变成/api/hello，此时/api/这个前缀没有被剔除
+  strip-prefix: true
+  sensitive-headers: Cookie,Set-Cookie,Authorization
+#  ignored-patterns: /**/say/** # url地址排除 排除所有包含/say/的路径
+#  ignored-services: cloud-demo # 服务名称排除，多个服务用逗号分隔，'*'表示排除所有
+  # 设置路由
+  routes:
+    cloud-demo:
+      # serviceId 是注册到Eureka的应用名称
+      serviceId: cloud-demo
+      # 匹配的地址
+      path: /cloud-demo/**
+
+
