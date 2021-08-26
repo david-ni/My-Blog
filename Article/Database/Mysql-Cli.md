@@ -27,4 +27,6 @@ show tables;
 
 # 显示tablename这个表的详细信息 
 describe tablename;
+
+
 ```
