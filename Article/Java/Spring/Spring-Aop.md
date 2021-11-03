@@ -1,4 +1,4 @@
-## <a id="spring-aop"></a>AOP
+## AOP
 
 AOP（Aspect Oriented Programming）即切面编程。AOP能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任，例如事务处理、日志管理、权限控制、异常处理等，封装起来，便于减少系统重复的代码，降低模块之间的耦合度。
 

@@ -1,6 +1,6 @@
 # Spring IOC
 
-> [官方文档](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans)
+> [官方文档](https://docs.spring.io/spring-framework/docs/5.2.16.RELEASE/spring-framework-reference/core.html#beans)
 
 IOC（控制反转）也可称为依赖注入（DI），用于解耦对象之间复杂的依赖关系。
 
@@ -12,7 +12,7 @@ IOC（控制反转）也可称为依赖注入（DI），用于解耦对象之间
 
 而IOC就是引进了中间位置的“第三方”，将依赖的控制权收归于一方，让各个对象依赖“第三方”。
 
-> [IOC的简单实现](https://github.com/superTerrorist/Blog/tree/master/Java/src/main/java/st/blog/java/ioc)
+> [IOC的简单实现](https://github.com/superTerrorist/My-Blog/tree/master/Code/Java/src/main/java/st/blog/java/ioc)
 
 Spring 提供了两种容器类型：[BeanFactory](https://docs.spring.io/spring-framework/docs/5.3.2/javadoc-api/org/springframework/beans/factory/BeanFactory.html) 和 [ApplicationContext](https://docs.spring.io/spring-framework/docs/5.3.2/javadoc-api/org/springframework/context/ApplicationContext.html)
 
@@ -21,11 +21,11 @@ Spring 提供了两种容器类型：[BeanFactory](https://docs.spring.io/spring
 - **ApplicationContext**: 在`BeanFactory`的基础上构建，是相对比较高
 级的容器实现，除了拥有`BeanFactory`的所有支持，`ApplicationContext`还提供了其他高级特性，比如事件发布、国际化信息支持等
 
-### <a id="spring-ioc-bean"></a> Bean
+### Bean
 
 IOC的实质是通过容器把依赖集中管理以此解决对象间相互依赖导致的问题。而IOC容器管理着一个或多个`bean`。
 
-### <a id="spring-ioc-bean-property"></a> Bean 的配置
+### Bean 的配置
 
 #### 标识符（[Naming beans](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-beanname)）
 
@@ -109,7 +109,7 @@ public class InstanceFactory {
 > 注：
 > `request`, `session`, `globalSession`, `application`和 `websocket` 只适用于web相关的上下文中比如`XmlWebApplicationContext`，如果在其他上下文中使用（比如：`ClassPathXmlApplicationContext`），会报`IllegalStateException`的错误
 
-### <a id="spring-ioc-bean-anotation"></a> 使用注解配置Bean
+### 使用注解配置Bean
 
 #### `@Configuration`
 
@@ -290,7 +290,7 @@ public class App {
 }
 ```
 
-### <a id="spring-ioc-bean-lifecycle"></a> Bean的生命周期
+### Bean的生命周期
 
 ![Spring-bean-life-cycle](https://user-images.githubusercontent.com/7795335/102587006-19b8f500-4146-11eb-8bcd-697fdb7c4d7c.jpg)
 

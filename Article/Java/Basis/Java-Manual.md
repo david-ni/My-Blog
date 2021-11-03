@@ -192,6 +192,8 @@ str1 == str2; // false
 
 ### 字符串的长度
 
+> [一个Java字符串中到底有多少个字符?](https://colobu.com/2019/01/04/how-many-charactors-in-a-java-string/)
+
 在Java中，可以使用`length`获取字符串的长度，不过这里需要注意的是，这里的长度表示的是代码单元的数量，一个代码单元即一个字符（char）的长度（2个字节）
 
 ```
