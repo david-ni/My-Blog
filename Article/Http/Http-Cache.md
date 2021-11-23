@@ -12,7 +12,7 @@ HTTP 缓存可以分为两种：强制缓存和协商缓存，整体流程图如
 
 强制缓存就是本地缓存查找的过程，在这个阶段不需要发送请求到服务器。强制缓存由Expires、Cache-Control 和 Pragma 3 个 Header 属性共同来控制。
 
-> 优先级: Pragma > Cache-Control > ExPires
+> 优先级: Pragma > Cache-Control > Expires
 
 ### `Pragma`
 

@@ -1,5 +1,6 @@
 ## system fils 
 .DS_Store
+node_modules
 
 ## ide
 .idea

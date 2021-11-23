@@ -2,6 +2,8 @@
 
 ## `requestAnimationFrame`
 
+> [requestAnimationFrame 执行机制探索](https://mp.weixin.qq.com/s/ocFcBRjj8xzizF5ebFepdA)
+
 通过调用`window.requestAnimationFrame(callback)`可以确保浏览器在下次**重绘之前调用指定的回调函数**
 
 ```js

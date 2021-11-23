@@ -16,7 +16,7 @@
     - [条件操作符](#operation-condition)
     - [分组操作符](#operation-group)
 
-## <a id="pipe"></a>管道操作符
+## 管道操作符
 
 每个操作符都会接收一连串的文档，对这些文档做一些类型转换后会将结果传递给下一个操作符。
 
@@ -28,7 +28,7 @@ db.demo.aggragate(["$match": { id: 1 },"$project": { name: 1 }])
 
 上例对`demo`这个文档使用了`$match`和`$project`这两个操作符。
 
-### <a id="match"></a>匹配操作符(`$match`) 
+### 匹配操作符(`$match`) 
 
 [`$match`](https://mongoing.com/docs/reference/operator/aggregation/match.html) 用于对文档进行筛选，语法：
 
@@ -43,7 +43,7 @@ db.demo.aggragate(["$match": { id: 1 },"$project": { name: 1 }])
 1. 可以快速的过滤不需要的文档
 2. 如果在投射和分组前使用`$match`，查询可以使用索引
 
-### <a id="project"></a>投射操作符(`$project`)
+### 投射操作符(`$project`)
 
 [`$project`](https://mongoing.com/docs/reference/operator/aggregation/project.html)可以抽取文档中的指定字段。语法：
 
@@ -95,7 +95,7 @@ db.demo.aggregate([{$project: { cusId: "$id","version": "$metadata.version" }}])
 
 可以使用[聚合操作符]()定义更复杂的表达式。
 
-### <a id="unwind"></a>拆分操作符(`$unwind`)
+### 拆分操作符(`$unwind`)
 
 [`$unwind`](https://mongoing.com/docs/reference/operator/aggregation/unwind.html)可以将数组中的每一个值拆分成单独的文档。语法：
 
@@ -121,7 +121,7 @@ db.demo.aggregate([{$project: { cusId: "$id","version": "$metadata.version" }}])
 `includeArrayIndex` | `string` | 数组索引的名称
 `preserveNullAndEmptyArrays` | `boolean` | 值为`true`时，当要拆分的字段找不到或者为空（null或者空数组），那么会返回未拆分前的文档； 值为`true`时，当要拆分的字段找不到或者为空（null或者空数组）,不会返回文档
 
-### <a id="group"></a>分组操作符(`$group`)
+### 分组操作符(`$group`)
 
 [`$group`](https://docs.mongodb.com/manual/reference/operator/aggregation/group/)操作符可以将文档依据`_id`中指定的表达式来分组。语法：
 
