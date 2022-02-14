@@ -1,10 +1,6 @@
 # Eureka(服务的注册和发现)
 
-网上流传Eureka不再维护，我看了一下github前几天刚发布1.10.3版本，所谓的不维护应该是2.x版本，1.x还可以方向使用。
-
-> [Eureka Wiki](https://github.com/Netflix/eureka/wiki)
-
-> [Eureka 项目搭建]()
+Eureka是Netflix开发的服务发现组件，Spring Cloud将它集成在其子项目spring-cloud-netflix中，以实现Spring Cloud的服务发现功能。网上流传Eureka不再维护，我看了一下github前几天刚发布1.10.3版本，所谓的不维护应该是2.x版本，1.x还依旧活跃。
 
 ## Eureka配置
 
@@ -33,3 +29,11 @@
     <artifactId>spring-cloud-context</artifactId>
 </dependency>
 ```
+
+## Resource
+
+1. [Eureka Wiki](https://github.com/Netflix/eureka/wiki)
+2. https://xiaoxiami.gitbook.io/spring-cloud/fu-wu-de-zhu-ce-yu-fa-xian/fu-wu-de-zhu-ce-yu-fa-xian-eureka/eureka-xiang-jie
+3. https://www.jianshu.com/p/cb7fa0aa47a8
+4. https://blog.csdn.net/u012410733/article/details/112303048
+5. https://www.jianshu.com/p/465e7539c3a9

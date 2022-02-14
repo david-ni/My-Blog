@@ -6,114 +6,89 @@
 
 上面解释可能过于抽象，有兴趣的同学可以参考，阮一峰老师的[进程与线程的一个简单解释](https://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html)，相信对大家理解线程和进程会有很大的帮助。
 
-每个Java程序至少存在一个进程和一个线程（主线程）。当一个 Java 程序启动时，JVM 会创建主线程，并在该线程中调用程序的 main() 方法。
+每个Java程序至少存在一个进程和至少两个线程（主线程和GC线程）。当一个 Java 程序启动时，JVM 会创建主线程，并在该线程中调用程序的 main() 方法。
 
-![thread](./Assets/main-thread-in-java.jpeg)
+<img src="./Assets/main-thread-in-java.jpeg" alt="thread" style="zoom:67%;" />
 
 如上图，JVM 除了创建主线程之外还默默的创建了其它线程，例如，与垃圾收集、对象终止和其它 JVM 内务处理任务相关的线程。
 
-### 线程和进程的区别
+> 线程和进程的区别:
 
 - 进程相对独立，不同进程之间很难共享内存。而线程虽然有它自己的堆栈、自己的程序计数器和自己的局部变量。但是，与分隔的进程相比，进程中的线程之间的隔离程度要小。它们共享内存、文件句柄和其它每个进程应有的状态；
 - 一个线程挂掉将导致整个进程崩溃，而不同进程之间一般不影响；
 - 进程要比线程消耗更多的计算机资源；
 
-## 线程的生命周期
+## 创建线程的方法
 
-![thread lifecycle](./Assets/main-thread-in-java-lifecycle.png)
-
-### 创建（New）
-
-在Java中，线程创建有两种方式：
+在Java中，线程创建有四种方式：
 
 1. 继承`Thread`类
 
-```java
-public class ChildThred extends Thread{
-    @Override
-    public void run(){
-        System.out.println(Thread.currentThread().getName());
-    }
-}
-```
+   ```java
+   public class ChildThred extends Thread{
+       @Override
+       public void run(){
+           System.out.println(Thread.currentThread().getName());
+       }
+   }
+   ```
 
 2. 实现一个`Runnable`接口
 
-```java
-Runnable runnable = () -> {
-    System.out.println(
-        Thread.currentThread().getName()            
-    );
-};
+   ```java
+   Runnable runnable = () -> {
+       System.out.println(
+           Thread.currentThread().getName()            
+       );
+   };
+   
+   Thread childThread = new Thread(runnable);
+   ```
 
-Thread childThread = new Thread(runnable);
+3. 使用`FutureTask`创建线程
+4. 通过线程池创建
+
+## 线程的生命周期
+
+<img src="./Assets/main-thread-in-java-lifecycle.png" alt="thread lifecycle" style="zoom: 60%;" />
+
+Java中线程的生命周期分为6种状态：
+
+```java
+public enum State {
+  NEW,
+  RUNNABLE,
+  BLOCKED,
+  WAITING,
+  TIMED_WAITING,
+  TERMINATED;
+}
 ```
 
-需要注意的是，线程的创建并不意味着执行。
+1. 创建（`NEW`）
 
-### 可执行（Runnable）
+当线程创建成功但**没有调用`start` 方法的线程**都处于本状态
+
+2. 可执行/运行中（`RUNNABLE`）
 
 当我们创建线程并执行`start`方法时，线程切换成可执行（Runnable）状态，等待CPU的调度。
 
 ```java
-childThread.start();
+thread.start();
 ```
 
-### 运行中（Running）
+但处于本状态并不意味着线程正在执行，只有当该线程获得CPU时间片，线程中的`run`方法才得以真正执行。
 
-当CPU开始调度处于就绪状态（Runnable）的线程时，线程中的`run`方法才得以真正执行。
+3. 阻塞（`BLOCKED`）
 
-### 阻塞（Blocked）
-
-### 终止（Dead）
+2. 等待（`WAITING`）
+3. 限时等待(`TIMED_WAITING`)
+4. 终止（`TERMINATED`）
 
 终止线程的方式有以下几种：
 
-- <b>自然终止</b>：当线程中没有可运行的程序时，线程自动终止;
-- <b>使用终止标志</b>：
-```java
-package com.practice.java.beginner.thread;
-
-public class ThreadDemo{
-
-    public static class ThreadProcessor implements Runnable{
-
-        private volatile boolean stopFlag = false;
-
-        @Override
-        public void run(){
-            System.out.println("The thread start");
-
-            while(!this.stopFlag){
-
-                System.out.println("in loop");
-            }
-
-            System.out.println("Exiting the thread");
-        }
-
-        public void terminate(){
-            this.stopFlag = true;
-        }
-    }
-
-    public static void main(String[] args){
-
-        ThreadProcessor threadProcessor = new ThreadProcessor();
-        Thread childThread = new Thread(threadProcessor);
-
-        childThread.start();
-
-        try{
-            Thread.sleep(2000);
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-
-        threadProcessor.terminate();
-    }
-}
-```
+- 自然终止：当线程中没有可运行的程序时，线程自动终止;
+- 异常终止：如果在`run`方法执行过程中发生异常而没有被捕获，线程异常终止
 - 通过调用`interrupt`方法
 
 ## 线程之间的通信

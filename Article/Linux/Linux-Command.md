@@ -60,3 +60,17 @@ systemctl [OPTIONS...] COMMAND [UNIT...]
 2. Add export PATH="your-dir:$PATH" to the last line of the file, where your-dir is the directory you want to add.
 3. Save the .bashrc file.
 4. Execute command: `source .bashrc`
+
+
+
+## >> 和 >的区别
+
+```bash
+echo "xxx" > filename 
+vs 
+echo "xxx" >> filename
+```
+
+- `>` 覆盖目标文件的内容
+- `>>`追加到目标文件的末尾
+
