@@ -90,3 +90,11 @@ public ArrayBlockingQueue(int capacity, boolean fair,
 `SynchronousQueue`可以看成是一个传球手，负责把生产者线程处理的数据直接传递给消费者线程。队列本身并不存储任何元素，非常适合传递性场景。SynchronousQueue的吞吐量高于`LinkedBlockingQueue`和`ArrayBlockingQueue`。
 
 ## 并发队列
+
+
+
+## 参考
+
+- [10分钟搞定 Java 并发队列好吗？好的](https://segmentfault.com/a/1190000023769855)
+- [关于阻塞队列在java7中的七种提供和区别](https://www.jianshu.com/p/9e4eca73553c)
+
