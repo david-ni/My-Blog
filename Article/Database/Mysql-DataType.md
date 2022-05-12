@@ -27,6 +27,8 @@
 | BIGINT    | 8       | -9223372036854775808 | 9223372036854775807  |
 |           |         | 0                    | 18446744073709551615 |
 
+> [What is the size of column of int(11) in mysql in bytes?](https://stackoverflow.com/questions/5634104/what-is-the-size-of-column-of-int11-in-mysql-in-bytes)
+
 ### 浮点型
 
 | 属性         | 存储空间 | 精度   | 精确性        | 说明                           |
