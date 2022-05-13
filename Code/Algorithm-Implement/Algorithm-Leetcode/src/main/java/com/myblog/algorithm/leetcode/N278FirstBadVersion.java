@@ -18,11 +18,12 @@ public class N278FirstBadVersion {
         int firstBadVersion = -1;
         if(!isBadVersion(n)) return -1;
         while (startVersion <= endVersion ){
-            int mid = endVersion - startVersion == 1 ? startVersion + (endVersion - startVersion)/2 : endVersion;
+            int mid = startVersion + (endVersion - startVersion) >> 1;
             if(isBadVersion(mid)){
-                firstBadVersion = endVersion = mid;
+                firstBadVersion = mid;
+                endVersion = mid - 1;
             }else{
-                startVersion = mid;
+                startVersion = mid + 1;
             }
         }
         return firstBadVersion;
