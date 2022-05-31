@@ -20,14 +20,19 @@ public class N328OddEvenLinkedList {
      */
     public static ListNode solution1(ListNode head){
         if(head == null) return head;
-        ListNode oddList = head; // 奇数链表
-        ListNode evenListHead = new ListNode(0);
-        ListNode evenList = evenListHead; // 偶数链表
-        while (oddList.next != null){
-            evenList = evenList.next = new ListNode(oddList.next.val);
-            oddList.next = oddList.next.next;
+        ListNode odd = head; // 奇数链表
+        ListNode evenHead = head.next;
+        ListNode even = evenHead; // 偶数链表
+
+        while (even != null && even.next != null){
+            odd.next = even.next;
+            odd = odd.next;
+            even.next = odd.next;
+            even = even.next;
         }
-        oddList.next = evenListHead.next;
+
+        odd.next = evenHead;
+
         return head;
     }
 
