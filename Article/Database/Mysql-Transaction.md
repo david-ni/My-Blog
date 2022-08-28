@@ -64,10 +64,14 @@
 
 隔离级别 | 第一类丢失更新 | 脏读 | 不可重复读 | 第二类丢失更新 | 幻读 
 ---|---|---|---|---|---
-READ_UNCOMMITTED | &check; | 
-READ_COMMITTED | &check; | &check;
-REPEATABLE_READ | &check; | &check; | &check; | &check;
-SERIALIZABLE | &check; | &check; | &check; | &check; | &check;
+READ_UNCOMMITTED（未提交读） | &check; ||||
+READ_COMMITTED（已提交读） | &check; | &check;|||
+REPEATABLE_READ（可重复读） | &check; | &check; | &check; | &check;|
+SERIALIZABLE（可串行化） | &check; | &check; | &check; | &check; | &check;
+
+> `REPEATABLE_READ（可重复读）`是Mysql的默认隔离级别。
+>
+> `SERIALIZABLE（可串行化）`是最高隔离级别，它会在读取的每一行数据上都加锁，可能会导致大量的超时和锁争用的问题，只有在非常需要确保数据一致性而且可以接受没有并发的情况下，才考虑采用该级别。
 
 ## 相关命令
 
