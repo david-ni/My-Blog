@@ -1,25 +1,15 @@
 # Spring Boot
 
-## Reference
-
-- [Spring Boot Release Notes](https://github.com/spring-projects/spring-boot/wiki#release-notes)
-- [Spring Boot 官方文档](https://docs.spring.io/spring-boot/docs/2.4.1/reference/htmlsingle/)
-- [SpringBoot2零基础入门](https://www.bilibili.com/video/BV19K4y1L7MT)
-
-## Spring Boot 简介
-
 Spring Boot 是整合Spring技术栈的一站式脚手架，能够快创建出生产级别的Spring应用，省去繁琐的配置。
 
-### 优点：
+> 特性：
 
-1. 能够创建独立的Spring应用
-2. 内嵌`Tomcat`、`Jetty`以及`Undertow` web服务器
-3. 提供多种"starter"，简化构建配置
-4. 自动配置Spring以及第三方功能
-5. 提供生产级别的监控、健康检查及外部化配置
-6. 无代码生成、无需编写XM
+1. **自动配置**：针对常用的应用功能，Spring Boot 能自动提供相关配置
+2. **起步依赖**：提供多种"starter"，简化构建配置
+3. **Actuator**：提供生产级别的监控、健康检查及外部化配置
+4. 内嵌`Tomcat`、`Jetty`以及`Undertow` web服务器
 
-### 系统要求
+> 系统要求
 
 目前最新版本的Spring Boot（2.4.0）要求至少是Java8+（最高兼容到Java15），Maven 3.3+或者Gradle 6+
 
@@ -39,9 +29,37 @@ Spring boot声明了多个不同场景的starter，比如开发web应用直接�
 </parent>
 ```
 
-## Spring Boot Web
+### Actuator
 
-### 静态资源
+Spring Boot Actuator提供了众多的web端点，通过它们我们可以了解程序运行的情况。
+
+> 要**启用**Actuator需要在项目中引入Actuator的起步依赖：
+>
+> ```xml
+> <dependency>
+> 	<groupId>org.springframework.boot</groupId>
+>   <artifactId>spring-boot-starter-actuator</artifactId>
+> </dependency>
+> ```
+
+| Http 方法 | 路径            | 描述                                                       |
+| --------- | --------------- | ---------------------------------------------------------- |
+| GET       | `/autoconfig`   | 自动配置报告                                               |
+| GET       | `/configgroups` | 描述配置属性如何注入bean                                   |
+| GET       | `/beans`        | 描述应用程序上下文中的bean，以及它们之间的关系             |
+| GET       | `/dump`         | 获取线程活动快照                                           |
+| GET       | `/env`          | 获取全部环境属性                                           |
+| GET       | `/env/{name}`   | 根据名称获取特定的环境属性                                 |
+| GET       | `/health`       | 报告应用程序的健康指标                                     |
+| GET       | `/info`         | 获取应用程序的定制信息                                     |
+| GET       | `/mappings`     | 获取全部URI路径，以及它们和控制器的映射关系                |
+| GET       | `/metrics`      | 报告各种度量信息，比如内存用量等                           |
+| POST      | `/shutdown`     | 关闭应用程序，要求`endpoints.shutdown.enabled`设置为`true` |
+| GET       | `/trace`        | 提供基本的HTTP请求跟踪信息                                 |
+
+### Spring Boot Web
+
+#### 静态资源
 
 默认情况下，只要把静态资源放在类路径下的以下几个目录：
 `/static` (or `/public` or `/resources` or `/META-INF/resources`
@@ -56,13 +74,13 @@ spring.mvc.static-path-pattern = /resources/**
 spring.web.resources.static-locations = /
 ```
 
-### 最佳实践
+#### 最佳实践
 
-#### 1. 使用Lombok 
+1. **使用Lombok** 
 
 > [Lombok官方](https://projectlombok.org/features/all)
 
-#### 2. Spring DevTool
+2. **Spring DevTool**
 
 ```xml
 <dependency>
@@ -93,7 +111,7 @@ spring.web.resources.static-locations = /
 - Global Settings
 - Remote Applications
 
-#### 3. 自定义类绑定的配置提示
+3. **自定义类绑定的配置提示**
 
 ```xml
 <dependency>
@@ -179,3 +197,9 @@ public class AppConfig{
 - @ImportResource 导入配置文件
 - @ConfigurationProperties
 - @EnableConfigurationProperties
+
+## 文档
+
+- [Spring Boot Release Notes](https://github.com/spring-projects/spring-boot/wiki#release-notes)
+- [Spring Boot 官方文档](https://docs.spring.io/spring-boot/docs/2.4.1/reference/htmlsingle/)
+- [SpringBoot2零基础入门](https://www.bilibili.com/video/BV19K4y1L7MT)

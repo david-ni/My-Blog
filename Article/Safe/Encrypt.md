@@ -62,7 +62,7 @@ public static String MD5Demo(String message) throws NoSuchAlgorithmException, IO
 
 ### 常见对称加密算法
 
-|                           算法名称                           |  密钥长度   |       工作模式       |                填充模式                 | 安全性 |
+|                           算法名称                           |  密钥长度   |       分组模式       |                填充模式                 | 安全性 |
 | :----------------------------------------------------------: | :---------: | :------------------: | :-------------------------------------: | ------ |
 | [DES](https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E5%8A%A0%E5%AF%86%E6%A8%99%E6%BA%96) |    56/64    | ECB/CBC/PCBC/CTR/... |       NoPadding/PKCS5Padding/...        | 不安全 |
 | [AES](https://zh.wikipedia.org/wiki/%E9%AB%98%E7%BA%A7%E5%8A%A0%E5%AF%86%E6%A0%87%E5%87%86) | 128/192/256 | ECB/CBC/PCBC/CTR/... | NoPadding/PKCS5Padding/PKCS7Padding/... | 安全   |
@@ -135,3 +135,7 @@ public class AesImp{
 2. 再将加密内容使用哈希算法生成**摘要**，而后将加密内容和摘要一同发送给接收方；
 3. **接受方**收到信息后，使用同一哈希算法生成密文摘要与发送方的摘要对比，以确保内容不被篡改
 4. 确认内容没有被篡改后，**接受方**再使用**公钥**对密文进行解密
+
+## 相关文章
+
+- [一文搞懂对称加密：加密算法、工作模式、填充方式、代码实现](https://segmentfault.com/a/1190000040964999)

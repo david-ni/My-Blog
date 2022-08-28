@@ -83,4 +83,5 @@ window.requestIdleCallback(idleCallback)
 - [HTML Standard系列：Event loop、requestIdleCallback 和 requestAnimationFrame](https://juejin.im/post/5ddf935951882530bd52bc8d)
 - [你应该知道的requestIdleCallback](https://gitlwz.github.io/2019/04/03/js-requestIdleCallback/)
 - [W3C requestIdleCallback规范](https://www.w3.org/TR/requestidlecallback/)
+- [ 浏览器帧原理剖析](https://juejin.cn/post/6844903808762380296)
 

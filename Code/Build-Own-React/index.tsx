@@ -1,4 +1,4 @@
-import * as React from "./react-step-1";
+import * as React from "./react";
 
 function App(){
     return (<div className="build-own-react">

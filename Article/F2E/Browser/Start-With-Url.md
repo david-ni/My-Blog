@@ -212,4 +212,5 @@ CSSOM + DOM = Render Tree
 4. [JavaScript modules](https://v8.dev/features/modules#module-vs-script)
 5. [浏览器的回流与重绘 (Reflow & Repaint)]()
 6. [Css triggers](https://csstriggers.com/)
+7. [Google Demo](https://googlechrome.github.io/devtools-samples/jank/)
 

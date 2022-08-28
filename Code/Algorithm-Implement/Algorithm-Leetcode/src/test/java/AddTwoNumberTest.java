@@ -1,14 +1,16 @@
+import com.myblog.algorithm.leetcode.N2AddTwoNumber;
+
 /**
  * @author David Wang <https://github.com/superTerrorist>
  */
 public class AddTwoNumberTest{
     public static void main(String[] args){
-        com.myblog.algorithm.leetcode.AddTwoNumber addTwoNumber = new com.myblog.algorithm.leetcode.AddTwoNumber();
+        N2AddTwoNumber n2AddTwoNumber = new N2AddTwoNumber();
 
-        com.myblog.algorithm.leetcode.AddTwoNumber.ListNode listNode1 = addTwoNumber.new ListNode(2,addTwoNumber.new ListNode(4, addTwoNumber.new ListNode(9)));
-        com.myblog.algorithm.leetcode.AddTwoNumber.ListNode listNode2 = addTwoNumber.new ListNode(5,addTwoNumber.new ListNode(6, addTwoNumber.new ListNode(9)));
+        N2AddTwoNumber.ListNode listNode1 = n2AddTwoNumber.new ListNode(2, n2AddTwoNumber.new ListNode(4, n2AddTwoNumber.new ListNode(9)));
+        N2AddTwoNumber.ListNode listNode2 = n2AddTwoNumber.new ListNode(5, n2AddTwoNumber.new ListNode(6, n2AddTwoNumber.new ListNode(9)));
 
-        com.myblog.algorithm.leetcode.AddTwoNumber.ListNode result = addTwoNumber.addTwoNumbers(listNode1,listNode2);
+        N2AddTwoNumber.ListNode result = n2AddTwoNumber.addTwoNumbers(listNode1,listNode2);
         System.out.println(result);
     }
 }
